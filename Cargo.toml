@@ -1,5 +1,5 @@
 [package]
-name = "web-crawler-rs"
+name = "banking-system-rs"
 version = "1.0.0"
 edition = "2021"
 

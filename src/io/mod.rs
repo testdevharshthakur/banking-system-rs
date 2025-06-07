@@ -1,7 +1,8 @@
-use std::io::{self, Write};
+use std::io;
+use std::io::Write;
 
 /// Clears the terminal
-pub fn clearScreen() {
+pub fn clear_screen() {
     print!("\x1B[2J\x1B[1;1H");
     io::stdout().flush().unwrap();
 }

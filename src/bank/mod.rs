@@ -145,4 +145,34 @@ impl Bank {
             None => Err(format!("Account {} not found.", account_num)),
         }
     }
+    /// Checks and then transfers a specefic amount from one account to another
+    pub fn transfer(
+        &mut self,
+        from_account_num: u32,
+        to_account_num: u32,
+        amount: f64,
+    ) -> Result<(), String> {
+        if from_account_num == to_account_num {
+            return Err("Cannot transfer funds to the same account".to_string());
+        }
+
+        if amount <= 0.0 {
+            return Err("Transfer amount must be positive".to_string());
+        }
+
+        let from_account = match self.accounts.get_mut(&to_account_num) {
+            Some(account) => account,
+            None => return Err(format!("Account {} not found", from_account_num)),
+        };
+        from_account.balance -= amount;
+
+        let to_account = match self.accounts.get_mut(&to_account_num) {
+            Some(account) => account,
+            None => return Err(format!("Account {} not found", to_account_num)),
+        };
+        to_account.balance += amount;
+
+        self.save_accounts();
+        Ok(())
+    }
 }

@@ -28,12 +28,11 @@ impl Account {
         if amount < 0.0 {
             return Err("Withdrawel amount has to be positve".to_string());
         }
+        if self.balance < amount {
+            return Err("Insufficient funds for withdrawal".to_string());
+        }
         self.balance -= amount;
         Ok(self.balance)
-    }
-
-    pub fn get_balance(&mut self) -> f64 {
-        self.balance
     }
 
     pub fn display_info(&self) {
